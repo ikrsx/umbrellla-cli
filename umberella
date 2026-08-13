@@ -7,11 +7,18 @@ if ! [[ -d $CACHE_DIR ]]; then
 	mkdir "$CACHE_DIR"
 fi
 
-# If failed, check for non-empty cached data. 
-if [[ $? && -s $REPORT_FILE ]]; then
+REPORT=$(curl -s wttr.in)
+
+# Save & show report on sucess. 
+if [[ $? ]]; then
+	echo "$REPORT" > "$REPORT_FILE"
+	cat "$REPORT_FILE"
+# Otherwise check for non-empty cache file.
+elif [[ -f $REPORT_FILE ]]; then
 	echo "Unable to contact the source."
 	echo "Loading from cache..."
 	cat "$REPORT_FILE"
+# Otherwise exit with error.
 else
 	echo "Unable to contact the source."
 	echo "Cannot load the cached data."
