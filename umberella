@@ -10,7 +10,7 @@ fi
 REPORT=$(curl -s wttr.in)
 
 # Save & show report on sucess. 
-if [[ $? ]]; then
+if [[ $REPORT ]]; then
 	echo "$REPORT" > "$REPORT_FILE"
 	cat "$REPORT_FILE"
 # Otherwise check for non-empty cache file.
