@@ -3,23 +3,18 @@
 CACHE_DIR="$HOME/.cache"
 REPORT_FILE="$CACHE_DIR/umberella"
 
-# If .cache is not directory
 if ! [[ -d $CACHE_DIR ]]; then
 	mkdir "$CACHE_DIR"
 fi
 
-# If failed, check for non-cached data. 
+# If failed, check for non-empty cached data. 
 if [[ $? && -s $REPORT_FILE ]]; then
-	echo "Unable to contact to source."
+	echo "Unable to contact the source."
 	echo "Loading from cache..."
-  
-	# Even single charecter means empty. 
-	chars=$(wc -m "$REPORT_FILE" | cut -d ' ' -f1)
-
-	if (( chars <= 1)) ; then
-		echo "Cannot load the cached data. Exiting...."
-		exit 1
-	fi
+	cat "$REPORT_FILE"
+else
+	echo "Unable to contact the source."
+	echo "Cannot load the cached data."
+	echo "Exiting...."
+	exit 1
 fi
-
-cat "$REPORT_FILE"
