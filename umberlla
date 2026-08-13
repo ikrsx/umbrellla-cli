@@ -1,1 +1,7 @@
 #!/usr/bin/env bash
+
+CACHE_DIR="$HOME/.cache"
+
+if ! [[ -d $CACHE_DIR ]]; then
+	mkdir "$CACHE_DIR"
+fi
